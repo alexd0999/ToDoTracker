@@ -1,0 +1,46 @@
+{
+  "configurations" : [
+    {
+      "id" : "8D1228B7-EE91-41FA-89B6-D815BAE1075C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ToDoTracker.xcodeproj",
+      "identifier" : "CBADBD532F60D473007D52C6",
+      "name" : "ToDoTracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ToDoTracker.xcodeproj",
+        "identifier" : "CBADBD602F60D474007D52C6",
+        "name" : "ToDoTrackerTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ToDoTracker.xcodeproj",
+        "identifier" : "CBADBD6A2F60D474007D52C6",
+        "name" : "ToDoTrackerUITests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ToDoTracker.xcodeproj",
+        "identifier" : "CB47010D2F8EF35600CBC7BE",
+        "name" : "ToDoTrackerUITestsMDI117"
+      }
+    }
+  ],
+  "version" : 1
+}
