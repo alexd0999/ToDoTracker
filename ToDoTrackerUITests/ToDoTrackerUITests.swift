@@ -9,33 +9,52 @@ import XCTest
 
 final class ToDoTrackerUITests: XCTestCase {
 
+    //runs right before every single test
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        continueAfterFailure = false // If the test fails, stop immediately
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    // A: UI Test Requirement - add and view tasks
+    func testAddingTask() throws {
+        let app = XCUIApplication()
+        app.launch() // Start the app
+        
+        // 1. Tap "Work" group in sidebar
+        app.collectionViews.cells.staticTexts["Work"].tap()
+        
+        // 2. Tap "Add Task" button in top right
+        let addTaskButton = app.buttons["Add Task"]
+        XCTAssertTrue(addTaskButton.waitForExistence(timeout: 2.0))
+        addTaskButton.tap()
+        
+        // 3. Find the created text field, tap, type
+        sleep(1) //wait 1 second for new task animation
+                
+        //count text fields, grab the last one on the list
+        let lastIndex = app.textFields.count - 1
+        let newTaskField = app.textFields.element(boundBy: lastIndex)
+                
+        newTaskField.tap()
+        newTaskField.typeText("Complete Assignment")
+        
+        // 4. Verify typed text is present on screen
+        XCTAssertTrue(app.textFields["Complete Assignment"].exists)
     }
-
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    
+    // B: UI Test Requirement - complete task
+    func testMarkTaskCompleted() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
-        }
+        
+        // 1. Go into "Work" group
+        app.collectionViews.cells.staticTexts["Work"].tap()
+        
+        // 2. Find the first checked toggle
+        let completeToggle = app.images["CompleteToggle"].firstMatch
+        XCTAssertTrue(completeToggle.waitForExistence(timeout: 2.0))
+        
+        // 3. Tap to complete task
+        completeToggle.tap()
+        
     }
 }
